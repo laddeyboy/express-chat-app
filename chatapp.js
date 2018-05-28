@@ -26,7 +26,7 @@ app.get('/chat', function(req, resp){
     // resp.render('chat.html', {nickname: userName});
     context = {
         nickname: req.query.nickname,
-        room: req.query.room
+        room: req.query.chatroom
     };
     resp.render('chat.html', context);
 });
@@ -57,6 +57,6 @@ io.on('connection', function(client){
     });
 });
 
-http.listen(8000, function () {
+http.listen(8080, function () {
   console.log('Listening on port 8000');
 });
