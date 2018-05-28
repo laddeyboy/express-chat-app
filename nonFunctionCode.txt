@@ -1,0 +1,35 @@
+chatapp.js
+
+//this code is for verifying if a nickname is unique.
+function addNickname(aName) {
+    console.log("length of nicknames: ", nicknames.length)
+    if(nicknames.length == 0){
+        nicknames.push({nickname: aName});
+        return true;
+    }
+    else {
+        //there are users, check if name is unique
+        if(isUniqueName(aName)) {
+            console.log('DEBUG: unique name');
+            nicknames.push({nickname: aName});
+            return true;
+        }
+        else {
+            console.log('DEBUG: name already exists');
+            return false;
+        }
+    }
+}
+
+function isUniqueName(aName) {
+    console.log("iUN:", aName);
+    for(let ind = 0; ind < nicknames.length; ind++) {
+        console.log("iUN for: ", nicknames[ind]);
+        if(nicknames[ind].nickname == aName){
+            return false;
+        }
+        else {
+            return true;
+        }
+    }
+}
