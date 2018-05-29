@@ -5,24 +5,9 @@
         <link rel="stylesheet" href="/css/base.css" type="text/css" />
         <script src="/socket.io/socket.io.js"></script>
         <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
-        <script type="text/javascript" src="/js/chat.js"></script>
+        {% block morejs %}{% endblock %}
     </head>
     <body>
-        <div class="main-container">
-            <div class="heading">
-                <h1>Chat App</h1>
-            </div>
-            <div class="name-box">
-                <form action="/chat" method="POST">
-                    <label>Please enter a nickname:</label>
-                    <input id="nickname" type="text" name="nickname"/>
-                    <br>
-                    <label>Which room would you like to join:</label>
-                    <input type="text" name="chatroom"/>
-                    <br>
-                    <input id="send" type="submit" value="Submit"/>
-                </form>                
-            </div>
-        </div>
+        {% block content %}{% endblock %}
     </body>
 </html>

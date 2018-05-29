@@ -1,28 +1,25 @@
+{% extends "base.html" %}
+{% block morejs %}
+<script>
+    var ROOM = '{{ room }}';
+    var NICKNAME = '{{ nickname }}';
+</script>
+<script type="text/javascript" src="/js/chat.js"></script>
+{% endblock %}
+{% block content %}
+<h1>Welcome <span id="nickname">{{nickname}}</span></h1>
+<div class="messages-container">
+    <div class="chat_messages">
+        <ul id="messages"></ul>
+    </div>
+    <div class="room_messages">
+        <ul id="rmMsgs"></ul>
+    </div>
+</div>
 
-<!DOCTYPE html>
-<html>
-    <head>
-        <title>My Chat Bot</title>
-        <link rel="stylesheet" href="/css/chat.css" type="text/css" />
-        <script src="/socket.io/socket.io.js"></script>
-        <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
-        <script type="text/javascript" src="/js/chat.js"></script>
-    </head>
-    <body>
-        <h1>Welcome <span id="nickname">{{nickname}}</span></h1>
-        <div class="messages-container">
-            <div class="chat_messages">
-                <ul id="messages"></ul>    
-            </div>
-            <div class="room_messages">
-                <ul id="rmMsgs"></ul>
-            </div> 
-        </div>
-        
-        <div>
-            <form action="">
-              <input id="m" autocomplete="off" /><button>Send</button>
-            </form>
-        </div>
-    </body>
-</html>
+<div>
+    <form action="">
+      <input id="m" autocomplete="off" /><button>Send</button>
+    </form>
+</div>
+{% endblock %}
