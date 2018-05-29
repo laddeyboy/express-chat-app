@@ -20,10 +20,6 @@ app.get('/', function(req, resp){
 });
 
 app.get('/chat', function(req, resp){
-    // //get the nickname of the request user test for validness at some point
-    // var userName = req.body.nickname;
-    // //send the nicknames array and do a for loop to display who's online.
-    // resp.render('chat.html', {nickname: userName});
     context = {
         nickname: req.query.nickname,
         room: req.query.chatroom
@@ -34,11 +30,9 @@ app.get('/chat', function(req, resp){
 
 io.on('connection', function(client){
 
-    //when I create a connection log my id to my username?
-    client.broadcast.emit('broadcast', 'a new user has joined');
-
     client.on('data', function(data){
         nicknames[client.id] = {name: data};
+        client.broadcast.emit('broadcast', `${data} has joined the chat`);
         console.log('nicknames: ', nicknames);
     })
 
