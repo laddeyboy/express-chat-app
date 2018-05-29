@@ -51,3 +51,8 @@ form button {
 #messages li:nth-child(odd) { 
     background: #eee; 
 }
+
+#feedback {
+    color: black;
+    opacity: .8;
+}

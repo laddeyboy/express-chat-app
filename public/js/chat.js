@@ -17,10 +17,18 @@ $(document).ready(function () {
         $('#m').val('');
         return false;
     });
+    
+    $('#m').keypress(function(){
+        socket.emit('typing', NICKNAME);
+    });
+    
+    socket.on('typing', function(msg) {
+        $('#feedback').text(msg);
+    });
 
     socket.on('chat message', function(msg){
+        $('#feedback').text('');        
         var $nameMsg = $('#nickname').text() + ' says: ';
-        console.log($nameMsg);
         $('#messages').append($('<li>').text(msg));
     });
 
@@ -29,8 +37,6 @@ $(document).ready(function () {
     });
 
     socket.on('disconnect', function(msg){
-        console.log($('#nickname').val());
         $('#rmMsgs').append($('<li>').text(msg));
     });
-
 });

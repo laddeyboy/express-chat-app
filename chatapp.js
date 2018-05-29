@@ -27,17 +27,30 @@ app.get('/chat', function(req, resp){
     resp.render('chat.html', context);
 });
 
+function findMyUser(UserId){
+    for (var ids in nicknames) {
+        if (ids === UserId){
+            return nicknames[ids].name;
+        }
+    }
+    return 'not found';
+}
 
 io.on('connection', function(client){
-
+    
     client.on('data', function(data){
         nicknames[client.id] = {name: data};
         client.broadcast.emit('broadcast', `${data} has joined the chat`);
-        console.log('nicknames: ', nicknames);
-    })
+    });
+    
+    client.on('typing', function(name) {
+        client.broadcast.emit('typing', `${name} is typing...`);
+    });
 
     client.on('disconnect', function() {
-        var msg = 'user has disconnected'
+        var user = findMyUser(client.id);
+        var msg = `${user} has disconnected`;
+        //also need to delete user from the array
         io.emit('disconnect', msg);
     });
 
