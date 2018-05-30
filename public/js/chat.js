@@ -39,4 +39,12 @@ $(document).ready(function () {
     socket.on('disconnect', function(msg){
         $('#rmMsgs').append($('<li>').text(msg));
     });
+    
+    socket.on('users online', function(names){
+        $('#allUsers').empty();
+        for(var users in names){
+            $('#allUsers').append($('<li>').text(names[users].name));
+        }
+    });
+    
 });

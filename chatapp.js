@@ -41,6 +41,7 @@ io.on('connection', function(client){
     client.on('data', function(data){
         nicknames[client.id] = {name: data};
         client.broadcast.emit('broadcast', `${data} has joined the chat`);
+        io.emit('users online', nicknames);
     });
     
     client.on('typing', function(name) {
@@ -50,17 +51,14 @@ io.on('connection', function(client){
     client.on('disconnect', function() {
         var user = findMyUser(client.id);
         var msg = `${user} has disconnected`;
-        //also need to delete user from the array
+        delete nicknames[client.id];
         io.emit('disconnect', msg);
-    });
-
-    client.on('user', function(msg) {
-        console.log(msg);
     });
 
     //server side socket -> server EventEmitter
     client.on('chat message', function(msg){
-        io.emit('chat message', msg);
+        var UsrMsg = nicknames[client.id].name +": " + msg;
+        io.emit('chat message', UsrMsg);
     });
 });
 

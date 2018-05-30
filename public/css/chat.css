@@ -10,16 +10,19 @@ body {
     display: flex;
     flex-direction: row;
     height: 500px;
+    overflow: scroll;
 }
 
 .room_messages {
     border: 2px solid blue;
-    width: 10vw;
+    width: 20vw;
+    height: 500px;
+    overflow: scroll;
 }
 
 .chat_messages {
     border: 2px solid green;
-    width: 90vw;
+    width: 80vw;
 }
 form { 
     background: #000; 
