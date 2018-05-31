@@ -1,5 +1,13 @@
 //CLIENT
-
+function updateUserData(names){
+    $('#allUsers').empty();
+    $('#active_users').text(Object.keys(names).length);
+    for(var users in names){
+        // $('#allUsers').append($('<li>').text(names[users].name));
+        var usrLink = "<a href='/chat' target='_blank'>"+names[users].name+"</a>";
+        $('#allUsers').append($('<li>').html(usrLink));
+    }
+}
 
 $(document).ready(function () {
     //client side socket -> client EventEmitter
@@ -7,6 +15,7 @@ $(document).ready(function () {
 
     socket.on('connect', function(){
        socket.emit('data', NICKNAME);
+       
        return false;
     });
 
@@ -28,7 +37,6 @@ $(document).ready(function () {
 
     socket.on('chat message', function(msg){
         $('#feedback').text('');        
-        var $nameMsg = $('#nickname').text() + ' says: ';
         $('#messages').append($('<li>').text(msg));
     });
 
@@ -36,15 +44,12 @@ $(document).ready(function () {
       $('#rmMsgs').append($('<li>').text(msg));
     });
 
-    socket.on('disconnect', function(msg){
-        $('#rmMsgs').append($('<li>').text(msg));
+    socket.on('disconnect', function(context){
+        $('#rmMsgs').append($('<li>').text(context.msg));
+        updateUserData(context.names);
     });
     
     socket.on('users online', function(names){
-        $('#allUsers').empty();
-        for(var users in names){
-            $('#allUsers').append($('<li>').text(names[users].name));
-        }
+        updateUserData(names);
     });
-    
 });

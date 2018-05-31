@@ -14,19 +14,21 @@
         <ul id="messages"></ul>
         <div><p id="feedback"></p></div>
     </div>
-    <div class="room_messages">
-        <ul id="rmMsgs"></ul>
+    <div class="info_container">
+        <div class="room_messages">
+            <h3>Admin Info:</h3>
+            <ul id="rmMsgs"></ul>
+        </div>    
+        <div>
+            <h3>Who's Online: <span id="active_users"></span></span> online</h3>
+            <ul id="allUsers"></ul>
+        </div>        
     </div>
 </div>
 
 <div>
-    <h4>Who's Online:</h4>
-    <ul id="allUsers"></ul>
-</div>
-
-<div>
     <form action="">
-      <input id="m" autocomplete="off" /><button>Send</button>
+      <input id="m" autocomplete="off" placeholder="Send a Message..."/><button>Send</button>
     </form>
 </div>
 {% endblock %}

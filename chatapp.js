@@ -20,9 +20,10 @@ app.get('/', function(req, resp){
 });
 
 app.get('/chat', function(req, resp){
-    context = {
+    var context = {
         nickname: req.query.nickname,
-        room: req.query.chatroom
+        room: req.query.chatroom,
+        numOfUsers: Object.keys(nicknames).length
     };
     resp.render('chat.html', context);
 });
@@ -37,7 +38,7 @@ function findMyUser(UserId){
 }
 
 io.on('connection', function(client){
-    
+
     client.on('data', function(data){
         nicknames[client.id] = {name: data};
         client.broadcast.emit('broadcast', `${data} has joined the chat`);
@@ -52,12 +53,17 @@ io.on('connection', function(client){
         var user = findMyUser(client.id);
         var msg = `${user} has disconnected`;
         delete nicknames[client.id];
-        io.emit('disconnect', msg);
+        var context = {
+            msg: msg,
+            names: nicknames
+        };
+        io.emit('disconnect', context);
     });
 
     //server side socket -> server EventEmitter
     client.on('chat message', function(msg){
-        var UsrMsg = nicknames[client.id].name +": " + msg;
+
+        var UsrMsg = findMyUser(client.id) + ": " + msg;
         io.emit('chat message', UsrMsg);
     });
 });
